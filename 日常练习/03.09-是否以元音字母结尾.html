@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  function endsWithVowel(str) {
+    let vowel = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
+    let lastVal = str[str.length - 1]
+    if (vowel.indexOf(lastVal) !== -1) {
+      return true
+    } else {
+      return false
+    }
+
+  }
+  endsWithVowel('catw')
+</script>
+
+</html>
