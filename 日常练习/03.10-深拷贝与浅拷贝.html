@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  // 对象赋值（复制的是该对象在栈中的地址）
+  let obj1 = {
+    name: '浪里行舟',
+    arr: [1, [2, 3], 4],
+  };
+  let obj2 = obj1;
+  obj2.name = "阿浪";
+  obj2.arr[1] = [5, 6, 7];
+  console.log('obj1', obj1) // obj1 { name: '阿浪', arr: [ 1, [ 5, 6, 7 ], 4 ] }
+  console.log('obj2', obj2) // obj2 { name: '阿浪', arr: [ 1, [ 5, 6, 7 ], 4 ] }
+
+  // 浅拷贝：其中一个对象改变了会影响另一个对象
+  let obj3 = shallowClone(obj1)
+
+  function shallowClone(source) {
+    let target = {}
+    for (var i in source) {
+      if (source.hasOwnProperty) {
+        target[i] = source[i]
+      }
+    }
+    return target
+  }
+  console.log(obj3, '浅拷贝')
+    // 深拷贝：修改新对象不会影响原对象
+  let obj4 = deepClone(obj1)
+  obj4.name = "阿芳"
+
+  function deepClone(obj) {
+    if (obj === null) return obj
+    if (obj instanceof Date) return new Date(obj)
+    if (obj instanceof RegExp) return new RegExp(obj)
+    if (typeof obj !== 'object') return obj
+    let cloneObj = new obj.constructor()
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        // 实现一个递归拷贝
+        cloneObj[key] = deepClone(obj[key])
+      }
+    }
+    return cloneObj
+  }
+  console.log(obj4, '深拷贝')
+
+  // --------------------归纳总结方法------------------------------
+  // *************浅拷贝的实现方式*************
+  // 1.Object.assign()
+  let obj_a = {
+    name: '小红',
+    age: 18,
+    msg: {
+      hobby: '打篮球',
+      height: 1.65
+    }
+  }
+  let obj_b = Object.assign({}, obj_a)
+  obj_b.name = "小刚"
+  obj_b.msg.hobby = '吃东西'
+  console.log(obj_a)
+    // 2.函数库lodash的_.clone方法
+    // var _ = require('lodash')
+    // var obj_c = {
+    //   a: 1,
+    //   b: {
+    //     f: {
+    //       g: 1
+    //     }
+    //   },
+    //   c: [1, 2, 3]
+    // }
+    // var obj_d = _.clone(obj_c)
+    // console.log(obj_d)
+
+  // 3.展开运算符
+  let obj_e = {
+    name: 'Kobe',
+    adress: {
+      x: 150,
+      y: 100
+    }
+  }
+  let obj_f = {...obj_e
+  }
+  obj_f.name = "小红"
+  obj_f.adress.x = 80000
+  console.log(obj_f)
+    // 4.Array.prototype.concat()
+  let arr1 = [1, 2, {
+    name: '阿阳',
+    age: 25
+  }]
+  let arr2 = arr1.concat()
+  arr2[0] = 1000
+  arr2[2].name = "小小"
+  arr2[2].age = 19
+  console.log(arr2)
+    //5.Array.prototype.slice()
+  let arr3 = arr1.slice()
+  console.log(arr3, '哈哈')
+
+  // ************深拷贝的实现方式******************
+  // 1.JSON.parse(JSON.stringify())
+  // 缺点：不能处理函数和正则
+  let arr_a = [1, 3, {
+    name: '丽丽',
+    age: 26
+  }]
+  let arr_b = JSON.parse(JSON.stringify(arr_a))
+  arr_b[0] = 10000
+  arr_b[2].name = "小花"
+  console.log(arr_b)
+    // 2.函数库lodash的_.cloneDeep方法
+    // var _ = require('lodash');
+    // var obj1 = {
+    //   a: 1,
+    //   b: {
+    //     f: {
+    //       g: 1
+    //     }
+    //   },
+    //   c: [1, 2, 3]
+    // };
+    // var obj2 = _.cloneDeep(obj1);
+    // console.log(obj1.b.f === obj2.b.f); // false
+
+  // 3.Jquery的extend()方法
+  // $.extend(deepCopy,target,object1,[objectN]) ==>第一个参数为true就是深拷贝
+  // var $=require('jquery')
+  // var obj1={
+  //   a:1,
+  //   b:{f:{g:1}},
+  //   c:[1,2,3]
+  // }
+  // var obj2=$.extend(true,{},obj1)
+
+  // 4.手写递归方式
+  // 递归方法实现深度克隆原理：遍历对象、数组直到里边都是基本数据类型，然后再去复制，就是深度拷贝。有种特殊情况需注意就是对象存在循环引用的情况，即对象的属性直接的引用了自身的情况，解决循环引用问题，我们可以额外开辟一个存储空间，来存储当前对象和拷贝对象的对应关系，当需要拷贝当前对象时，先去存储空间中找，有没有拷贝过这个对象，如果有的话直接返回，如果没有的话继续拷贝，这样就巧妙化解的循环引用的问题。
+  function deepCloneXXX(obj, hash = new WeakMap()) {
+    if (obj === null) return obj
+    if (obj instanceof Date) return new Date(obj)
+    if (obj instanceof RegExp) return new RegExp(obj)
+      // 可能是对象或者普通的值，如果是函数的话就不需要拷贝
+    if (typeof obj !== 'object') return obj
+      // 是对象的话就要进行深拷贝
+    if (hash.get(obj)) return hash.get(obj)
+    let cloneObj = new obj.constructor()
+      // 找到的是所属类原型上的constructor,而原型上的constructor指向的是当前类本身
+    hash.set(obj, cloneObj)
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        // 实现一个递归拷贝
+        cloneObj[key] = deepCloneXXX(obj[key], hash)
+      }
+    }
+    return cloneObj
+  }
+  let obj_m = {
+    name: 1,
+    adress: {
+      x: 100
+    }
+  }
+  obj_m.o = obj_m //对象存在循环引用的情况
+  let d = deepCloneXXX(obj_m)
+  obj_m.adress.x = 666
+  console.log(obj_m)
+</script>
+
+</html>
