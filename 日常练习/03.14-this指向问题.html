@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  var a = 3
+  let obj = {
+    a: 2,
+    fn: function() {
+      console.log(this.a)
+    }
+  }
+  obj.fn()
+
+
+  // ------------------显示绑定---------------------
+  // call的基本使用方式：fn.call(object)
+  // fn.call(object)的作用:
+  // 1.即刻调用这个函数（fn）
+  // 2.调用这个函数的时候函数的this指向object对象
+  var obj1 = {
+      a: 1,
+      fire: function() {
+        console.log(this.a)
+      }
+    }
+    // var fireInGlobal = obj1.fire
+    // fireInGlobal() //3
+    // fireInGlobal.call(obj1) //1
+  var fn = obj1.fire
+  var fireInGlobal = function() {
+    fn.call(obj1)
+  }
+  fireInGlobal()
+    // 换成bind
+  var fireInGlobal = fn.bind(obj1)
+  fireInGlobal()
+
+  // call和bind的区别
+  // 1.call将立即执行该函数
+  // 2.bind不执行函数，只返回一个可供执行的函数
+</script>
+
+</html>
