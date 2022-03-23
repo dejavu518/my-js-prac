@@ -12,18 +12,17 @@
 
 </body>
 <script>
-  var str = "djvhnfjkgvnsdfkjg"
-  var o = {}
-  for (var i = 0; i < str.length; i++) {
-    var chars = str.charAt(i)
-    if (o[chars]) {
-      o[chars]++
-    } else {
-      o[chars] = 1
+  function createModule(str1, str2) {
+    let obj = {
+      greeting: str1,
+      name: str2,
+      sayIt: function() {
+        return this.greeting + ',' + this.name
+      }
     }
+    return obj
   }
-  console.log(o)
-  console.log(window)
+  console.log(createModule('hello', '小明'))
 </script>
 
 </html>

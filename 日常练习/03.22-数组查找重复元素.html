@@ -12,18 +12,16 @@
 
 </body>
 <script>
-  var str = "djvhnfjkgvnsdfkjg"
-  var o = {}
-  for (var i = 0; i < str.length; i++) {
-    var chars = str.charAt(i)
-    if (o[chars]) {
-      o[chars]++
-    } else {
-      o[chars] = 1
-    }
+  function duplicates(arr) {
+    let newArr = []
+    arr.forEach(item => {
+      if (newArr.indexOf(item) == -1 && arr.indexOf(item) !== arr.lastIndexOf(item)) {
+        newArr.push(item)
+      }
+    })
+    console.log(newArr)
   }
-  console.log(o)
-  console.log(window)
+  duplicates([1, 2, 3, 3, 5, 6, 6, 8]) //3,6
 </script>
 
 </html>

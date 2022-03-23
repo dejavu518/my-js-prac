@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  // 统计数组arr中等于item项的次数
+  // 1.filter()-->利用指定的函数是否在返回的数组中包含某一项
+  function count(arr, item) {
+    var count = arr.filter(a => {
+      return a === item //返回true的项组成的数组
+    })
+    return count.length
+  }
+  // 2.map()-->对数组中的每一项进行给定函数
+  // 返回每次函数调用的结果组成的数组
+  function count(arr, item) {
+    var count = 0
+    arr.map(a => {
+      if (a === item) {
+        count++
+      }
+    })
+    return count
+  }
+  // 3.for循环
+  function count(arr, item) {
+    let count = 0
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] === item) {
+        count++
+      }
+    }
+    return count
+  }
+  // 4.reduce()-->从数组的第一项开始，逐个遍历到最后
+  function count(arr, item) {
+    var count = arr.reduce((prev, cur) => {
+      return curr === item ? prev + 1 : prev
+    }, 0)
+    return count
+  }
+  // forEach()-->对数组中的每一项运行传入进去的函数
+  function count(arr, item) {
+    var count = 0
+    arr.forEach(a => {
+      a === item ? count++ : 0
+    });
+    return count
+  }
+</script>
+
+</html>
