@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  // 给定一个长度小于 50 且包含字母和数字的任意字符串，要求按顺序取出当中的数字和英文字母，数字需要去重，重新排列后的字符串数字在前，字母在后。
+
+  // *********自己思路********：
+  // 先取出数字，用数组存放
+  // 数组去重
+  // 取出英文字母，用数组存在
+  // 合并数组,按字母->数字转换为字符串
+
+  function sortStr(str) {
+    console.log(str)
+    let number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    let numberArr = []
+    let letterArr = []
+      // 取出数字/字母数组
+    for (let i = 0; i < str.length; i++) {
+      if (number.indexOf(Number(str[i])) !== -1) {
+        numberArr.push(str[i])
+      } else {
+        letterArr.push(str[i])
+      }
+    }
+    // 数组去重
+    let newNumberArr = Array.from(new Set([...numberArr]))
+      // 合并数组
+    let connectedArr = newNumberArr.concat(letterArr)
+      // 转换最终字符串
+    let connectedStr = connectedArr.join('')
+    console.log(connectedStr)
+  }
+  sortStr('s41dgafgv545335dsa585212cvf666sf38700sd')
+
+  // ***********掘金思路**************
+  // 字符串转数组： str.split('')（进而使用数组的各种操作方法，如 arr.forEach）
+  // 判断字符串值是否为数字：/\d/.test(element) 或者 Number.isNaN(Number(element)
+  // 判断字符串值是否为字母：/[a-zA-Z]/.test(element)
+  // 数字字符串去重（利用数组去重）
+  // 输出数字+字母
+
+  // 解决方案
+  function handleStr(str) {
+    var nums = str.match(/\d/g).join('')
+    var words = str.match(/[a-zA-Z]/g).join('')
+    return uniqueStr(nums) + words
+  }
+
+  function uniqueStr(str) {
+    var arr = str.split('');
+    return arr.filter(function(element, index) {
+      return arr.indexOf(element) === index;
+    }).join('');
+  }
+  console.log(uniqueStr('446313464965232358985'))
+  console.log(handleStr('携程C2t0r1i8p2020校招'));
+
+  // 字符串检索
+  // var str = "web2.0 .net2.0";
+  // var searchValue = "e";
+  // let strArr = str.match(searchValue)
+  // console.log(strArr.length);
+
+  var str = "web2.0 .net2.0";
+  var pattern = /(\w+)(\d)\.(\d)/; //没有全局标志g
+  console.log(str.match(pattern));
+</script>
+
+</html>

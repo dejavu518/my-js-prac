@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  let q1 = prompt('你是猪吗')
+  if (q1 === '我是猪') {
+    alert('恭喜你答对了!!!没错,我也觉得')
+  } else if (q1 === '不是') {
+    alert('错,你就是!!!')
+    prompt('你是猪吗')
+  } else if (q1 === '你才是') {
+    alert('你再说一次!!!')
+    prompt('你是猪吗')
+  } else if (q1 === '是') {
+    alert('谁是???答案不完整')
+    prompt('你是猪吗')
+  } else {
+    alert('重新作答')
+    prompt('你是猪吗')
+  }
+</script>
+
+</html>
