@@ -13,19 +13,19 @@
 </body>
 <script>
   function cssStyle2DomStyle(sName) {
-    // let a = sName.split('-')
-    // if (a[0] === '') {
-    //   a.shift()
-    // }
-    // let arr = []
-    // for (let i = 1; i < a.length; i++) {
-    //   let s1 = a[i][0].toUpperCase()
-    //   let s2 = a[i].slice(1)
-    //   s = s1 + s2
-    //   arr.push(s)
-    // }
-    // let resArr = a[0].concat(arr).replace(',', '')
-    // return resArr
+    let a = sName.split('-')
+    if (a[0] === '') {
+      a.shift()
+    }
+    let arr = []
+    for (let i = 1; i < a.length; i++) {
+      let s1 = a[i][0].toUpperCase()
+      let s2 = a[i].slice(1)
+      s = s1 + s2
+      arr.push(s)
+    }
+    let resArr = a[0].concat(arr).replace(',', '')
+    return resArr
     return sName.replace(/\-[a-z]/g, function(a, b) {
       return b == 0 ? a.replace('-', '') : a.replace('-', '').toUpperCase();
     });
