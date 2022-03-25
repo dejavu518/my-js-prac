@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  // 1.创建XMLHttpRequest对象
+  var xhr = new XMLHttpRequest()
+    // 2.设置open参数
+    // get---->('请求方式','请求地址和参数','是否异步')
+  xhr.open('get', 'www.baidu.com?+id=' + id, true)
+    // post--->('请求方式','请求地址','是否异步')+请求头
+  xhr.open('post', 'www.baidu.com', true)
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    // 3.注册回调函数
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState == '4' && xhr.status == '200') {
+        var res = xhr.responseText
+        document.getElementById('box').innerHTML = res
+      }
+    }
+    // 4.发送请求
+    // get--->
+  xhr.send(null)
+    // post--->
+  xhr.send('id=5&&name=123')
+</script>
+
+</html>

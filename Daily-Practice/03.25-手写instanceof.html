@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // instance运算符用于测试构造函数的prototype属性是否出现在对象原型链中的任何位置
+    // *******实现思路*******：
+    // 首先 instanceof 左侧必须是对象, 才能找到它的原型链
+    // instanceof 右侧必须是函数, 函数才会prototype属性
+    // 迭代, 左侧对象的原型不等于右侧的 prototype时, 沿着原型链重新赋值左侧
+
+    console.log([1, 2, 3] instanceof Array) //true
+      // L instanceof R
+      // 变量R的原型 存在于 变量L的原型链上
+    function instance_of(L, R) {
+      // 验证如果为基本数据类型，就直接返回false
+      const baseType = ['string', 'number', 'boolean', 'undefined', 'symbol']
+      if (baseType.includes(typeof(L))) return false
+      let RP = R.prototype //取R的显示原型
+      L = L.__proto__ //取L的隐式原型
+      while (true) {
+        if (L === null) return false //找到最顶层
+        if (L === RP) return true //严格相等
+        L = L.__proto__
+      }
+    }
+    console.log(instance_of([1, 3, 4], Function)) //false
+  </script>
+</body>
+
+</html>
