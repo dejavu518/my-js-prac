@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  // 找出对象 obj 不在原型链上的属性(注意这题测试例子的冒号后面也有一个空格~)
+  // 1、 返回数组， 格式为 key: value
+  // 2、 结果数组不要求顺序
+
+  // 方式1.Object.keys(obj)-->只会遍历实例属性key值，不会遍历原型上的属性
+  function iterate(obj) {
+    const keyArr = Object.keys(obj)
+    const temp = []
+    for (let i in keyArr) {
+      temp[i] = keyArr[i].concat(': ', obj[keyArr[i]])
+    }
+    return temp
+  }
+  console.log(iterate({
+    name: '小明',
+    age: 15,
+    sex: '男'
+  }))
+
+  // 方式2.for in可以遍历到obj的原型属性和方法，如果不想遍历原型上的，可以在循环内通过obj.hasOwnProperty()判断其是否是自己的实例属性
+  function iterate2(obj) {
+    const temp = []
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        temp.push(key.concat(': ', obj[key]))
+      }
+    }
+    return temp
+  }
+  console.log(iterate2({
+    name: '小明',
+    age: 15,
+    sex: '男'
+  }))
+</script>
+
+</html>
