@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 1.实现一个监听器Observer，用来劫持并监听所有属性，如果有变动的，就通知订阅者。
+    // 2.实现一个订阅者Watcher，可以收到属性的变化通知并执行相应的函数，从而更新视图。
+    // 3.实现一个解析器Compile，可以扫描和解析每个节点的相关指令，并根据初始化模板数据以及初始化相应的订阅器。
+
+    // ##################
+    // 实现一个Observer
+    function defineReactive(data, key, val) {
+      observe(val) //递归遍历所有子属性
+      Object.defineProperty(data, key, {
+        enumerable: true,
+        configurable: true,
+        get: function() {
+          return val
+        },
+        set: function(newVal) {
+          val = newVal
+          console.log('属性' + key + '已经被监听了，现在值为：“' + newVal.toString() + '”')
+        }
+      })
+    }
+
+    function observe(data) {
+      if (!data || typeof data !== 'object') {
+        return
+      }
+      Object.keys(data).forEach(key => {
+        defineReactive(data, key, data[key])
+      })
+    }
+    var library = {
+      book1: {
+        name: ''
+      },
+      book2: ''
+    };
+    observe(library);
+    library.book1.name = 'vue权威指南'; // 属性name已经被监听了，现在值为：“vue权威指南”
+    library.book2 = '没有此书籍'; // 属性book2已经被监听了，现在值为：“没有此书籍”
+    // ##############
+    // 未完待续~~~~~~~
+  </script>
+</body>
+
+</html>
