@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container {
+      width: 80%;
+      height: 600px;
+      border: 2px solid red;
+      background: #000;
+      margin: 20px auto;
+      cursor: pointer;
+      position: relative;
+      left: 0;
+      top: 0;
+      overflow: hidden;
+    }
+    
+    .fire {
+      width: 6px;
+      height: 6px;
+      position: absolute;
+      animation: fireBug 3s infinite;
+      bottom: 0;
+    }
+    
+    @keyframes fireBug {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.2;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="container">
+  </div>
+  <script src="../utils/animate-opacity.js"></script>
+</body>
+<script>
+  class FireWork {
+    constructor(options) {
+      //单例模式 如果 FireWork上已经有选择好的元素了,那么我们就不需要重复进行选择了
+      if (FireWork.main && FireWork.main.selector === options.main) {
+        //已经经历过元素选择了，所以直接赋值
+        this.main = FireWork.main.ele;
+      } else {
+        //还没有进行元素选择；
+        //将需要获取的DOM放入对象中 ， 进行判断的也放入对象中
+        FireWork.main = {
+          ele: document.querySelector(options.main),
+          selector: options.main
+        }
+        this.main = FireWork.main.ele;
+      }
+      //获取烟花爆炸的方式，并放入原型中
+      this.blast_type = options.blast_type;
+      //将传入的需要创建的子元素tagName放入原型中
+      this.ele_tagName = options.children;
+      //将获取传入的鼠标点击位置
+      this.x = options.x;
+      this.y = options.y;
+      //调用初始化方法
+      this.init()
+    }
+    init() {
+        //创建DIV
+        this.ele = this.createFireWork()
+          //设置边界
+        this.left_max = this.main.offsetWidth - this.ele.offsetWidth;
+        this.top_max = this.main.offsetHeight - this.ele.offsetHeight;
+        //调用烟花上升的方法
+        this.fireWorkUp(this.ele)
+      }
+      //创建DIV
+    createFireWork() {
+        var ele = document.createElement(this.ele_tagName)
+        ele.className = "fire"
+          //调用方法设置随机颜色
+        this.randomColor(ele);
+        return this.main.appendChild(ele)
+      }
+      //设置烟花上升
+    fireWorkUp(ele) {
+        //设置烟花上升的横坐标
+        ele.style.left = this.x + "px";
+        //调用封装好的运动JS ， 设置元素想上运动   
+        animate(ele, {
+          top: this.y
+        }, function() {
+          //烟花到达指定地点之后消失
+          ele.remove();
+          //调用烟花的爆炸效果
+          this.fireWorkBlast()
+        }.bind(this))
+      }
+      //烟花爆炸效果
+    fireWorkBlast() {
+        //设置烟花爆炸之后散发的光点个数 
+        for (var i = 0; i < 100; i++) {
+          //创建对应的DIV
+          var ele = this.createFireWork()
+            //设置随机颜色
+          this.randomColor(ele);
+          //设置随机位置
+          ele.style.left = this.x + "px";
+          ele.style.top = this.y + "px";
+          ele.style.borderRadius = "50%";
+          //判断爆炸之后的形状
+          switch (this.blast_type) {
+            //爆炸之后成圆形
+            case "circle":
+              //设置散发之后成一个圆形
+              animate(ele, this.circleBlast(i, 20), function(ele) {
+                //运动完成之后消失
+                ele.remove()
+              }.bind(this, ele));
+              break;
+              //爆炸之后成心形
+            case "heart":
+              //设置散发之后成一个爱心
+              animate(ele, this.heartBlast(i), function(ele) {
+                ele.remove()
+              }.bind(this, ele))
+              break
+              //爆炸之后随机运动
+            default:
+              animate(ele, this.randomPosition(), function(ele) {
+                ele.remove()
+              }.bind(this, ele))
+              break
+          }
+        }
+      }
+      //设置随机颜色
+    randomColor(ele) {
+        return ele.style.backgroundColor = "#" + parseInt(parseInt("ffffff", 16) * Math.random()).toString(16).padStart(6, 0);
+      }
+      //散发随机位置
+    randomPosition() {
+        return {
+          left: parseInt(Math.random() * (this.left_max + 1)),
+          top: parseInt(Math.random() * (this.top_max + 1))
+        }
+      }
+      //散发形成一个圆形
+    circleBlast(index, all) {
+        var r = 100;
+        var reg = (360 / all) * index;
+        var deg = Math.PI / 180 * reg;
+        return {
+          left: parseInt(r * Math.cos(deg)) + this.x,
+          top: parseInt(r * Math.sin(deg)) + this.y
+        }
+      }
+      //散发成一个爱心
+    heartBlast(i) {
+      var r = 60;
+      var m = i;
+      var n = -r * (((Math.sin(i) * Math.sqrt(Math.abs(Math.cos(i)))) / (Math.sin(i) + 1.4)) - 2 * Math.sin(i) + 2);
+      return {
+        left: n * Math.cos(m) + this.x,
+        top: n * Math.sin(m) + this.y
+      }
+    }
+
+  }
+
+  var ele_con = document.querySelector(".container")
+  ele_con.addEventListener("click", function(evt) {
+    var e = evt || event;
+    new FireWork({
+      main: ".container",
+      children: "div",
+      x: e.offsetX,
+      y: e.offsetY,
+      blast_type: "heart" //设置烟花爆炸之后的形状
+    });
+  })
+</script>
+
+</html>
