@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    //    实现一个函数
+    // 1. 根据输入的数字范围[start,end]和随机数个数"n"生成随机数
+    // 2. 生成的随机数存储到数组中，返回该数组
+    // 3. 返回的数组不能有相同元素
+    // 注意：
+    // 1. 不需要考虑"n"大于数字范围的情况
+
+    function getUniqueNumber(start, end, n) {
+      let arr = []
+      let randomArr = []
+      for (let index = 0; index < end - start + 1; index++) {
+        arr.push(start + index)
+      }
+      while (randomArr.length < n) {
+        let randomIndex = Math.floor(Math.random() * arr.length)
+        randomArr.push(arr[randomIndex])
+        arr.splice(randomIndex, 1)
+      }
+      return randomArr
+    }
+    console.log(getUniqueNumber(2, 8, 4));
+  </script>
+</body>
+
+</html>

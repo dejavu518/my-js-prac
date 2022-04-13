@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 根据题目要求， 实现一个仿new功能的新 "_new" 函数， 该函数会返回一个对象， 该对象的构造函数为函数参数、 原型对象为函数参数的原型， 核心步骤有：
+
+    // 创建一个新对象
+    // 获取函数参数
+    // 将新对象的原型对象和函数参数的原型连接起来
+    // 将新对象和参数传给构造器执行
+    // 如果构造器返回的不是对象， 那么就返回第一个新对象
+
+    const _new = function() {
+      const object1 = {}
+      const Fn = [...arguments].shift()
+      object1.__proto__ = Fn.prototype
+      const object2 = Fn.apply(object1, arguments)
+      return object2 instanceof Object ? object2 : object1
+    }
+  </script>
+</body>
+
+</html>
