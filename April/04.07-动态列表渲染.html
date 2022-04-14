@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    li {
+      list-style: none;
+    }
+  </style>
+</head>
+
+<body>
+  <ul></ul>
+  <script>
+    var people = [{
+        name: '牛油1号',
+        id: 1,
+        age: 20
+      },
+      {
+        name: '牛油2号',
+        id: 2,
+        age: 21
+      },
+      {
+        name: '牛油3号',
+        id: 3,
+        age: 19
+      },
+    ]
+    var ul = document.querySelector('ul');
+    let str = ''
+    people.forEach(item => {
+      str += `<li>${item.name} ${item.age}</li>`
+      return str
+    })
+    ul.innerHTML = str
+  </script>
+</body>
+
+</html>
