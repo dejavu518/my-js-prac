@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .wrap {
+      width: 500px;
+      height: 400px;
+      border: 1px solid #666;
+    }
+
+    .sub-wrap {
+      border-top: 1px solid #666;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <input type="checkbox" class="all">全选/取消全选</input>
+    <div class="sub-wrap">
+      <div style="width: 100%;">
+        <input type="checkbox">哈哈哈哈</input>
+      </div>
+      <div style="width: 100%;">
+        <input type="checkbox">哈哈哈哈</input>
+      </div>
+      <div style="width: 100%;">
+        <input type="checkbox">哈哈哈哈</input>
+      </div>
+      <div style="width: 100%;">
+        <input type="checkbox">哈哈哈哈</input>
+      </div>
+    </div>
+  </div>
+  <script>
+    var all = document.querySelector('.all')
+    var items = document.querySelector('.sub-wrap').querySelectorAll('input')
+    console.log(all.checked)
+    all.onclick = function () {
+      var checked = all.checked
+      for (var i = 0; i < items.length; i++) {
+        items[i].checked = checked
+      }
+    }
+    for (var i = 0; i < items.length; i++) {
+      var checked = all.checked
+      items[i].onclick = function () {
+        for (var i = 0; i < items.length; i++) {
+          if (items[i].checked !== checked) {
+            alert(123)
+            checked = true
+          }
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>

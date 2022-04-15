@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .content div {
+      display: none;
+    }
+
+    .active {
+      background: lawngreen;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="btns">
+      <button>首页</button>
+      <button>联系人</button>
+      <button>个人中心</button>
+    </div>
+    <div class="content">
+      <div style="display: block;">我是首页内容</div>
+      <div>我是联系人内容</div>
+      <div>我是个人中心内容</div>
+    </div>
+  </div>
+</body>
+<script>
+  var btns = document.querySelector('.btns').querySelectorAll('button')
+  var contents = document.querySelector('.content').querySelectorAll('div')
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].onclick = function () {
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].className = ''
+        btns[i].setAttribute('index', i)
+      }
+      this.classList.add('active')
+      let indexArr = []
+      for (var j = 0; j < contents.length; j++) {
+        contents[j].setAttribute('index', j)
+        indexArr.push(contents[j].getAttribute('index'))
+      }
+      const tabIndex = this.getAttribute('index')
+      for (let k = 0; k < indexArr.length; k++) {
+        if (indexArr[k] === tabIndex) {
+          contents[0].style.display = 'none'
+          contents[1].style.display = 'none'
+          contents[2].style.display = 'none'
+          contents[k].style.display = 'block'
+        }
+      }
+    }
+  }
+  // 真笨的方法
+</script>
+
+</html>
