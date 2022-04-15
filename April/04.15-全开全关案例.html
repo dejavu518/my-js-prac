@@ -40,20 +40,18 @@
   <script>
     var all = document.querySelector('.all')
     var items = document.querySelector('.sub-wrap').querySelectorAll('input')
-    console.log(all.checked)
     all.onclick = function () {
       var checked = all.checked
       for (var i = 0; i < items.length; i++) {
         items[i].checked = checked
       }
     }
+    var flag = all.checked
     for (var i = 0; i < items.length; i++) {
-      var checked = all.checked
       items[i].onclick = function () {
         for (var i = 0; i < items.length; i++) {
-          if (items[i].checked !== checked) {
-            alert(123)
-            checked = true
+          if (items[i].checked === flag) {
+            alert(111)
           }
         }
       }
