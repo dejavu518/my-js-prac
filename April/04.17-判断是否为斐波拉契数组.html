@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // ——————题目描述——————
+    // 请补全JavaScript代码，要求以Boolean的形式返回参数数组是否为斐波那契数列。在数学上，斐波那契数列以如下方法定义：F(0)=0，F(1)=1, F(n)=F(n - 1)+F(n - 2)（n ≥ 2，n ∈ N）
+    // 注意：
+    // 1. [0,1,1]为最短有效斐波那契数列
+
+    // ——————解题思路———————
+    //根据题目要求，判断数组参数中的值是否符合斐波那契数列，该数列指的是这样一个数列：0、1、1、2、3、5、8、13、21、34、...。在数学上，斐波那契数列以如下被以递推的方法定义：F(0)=0，F(1)=1, F(n)=F(n - 1)+F(n - 2)（n ≥ 2，n ∈ N*），核心步骤有:
+    // 首先判断数组参数的长度是否小于3，第一、二项的值是否分别为0、1，如果其中一项不符合，那么返回false
+    // 遍历数组参数，从第三项开始，判断该项的值是否符合F(n)=F(n - 1)+F(n - 2)，是则continue，否则返回false
+    // 当数组遍历完成时返回true
+
+    const _isFibonacci = array => {
+      if (array.length < 3 || array[0] !== 0 || array[1] !== 1) return false
+      for (let i = 2; i < array.length; i++) {
+        if (array[i] === array[i - 1] + array[i - 2]) continue
+        return false
+      }
+      return true
+    }
+    console.log(_isFibonacci([0, 1, 1, 2]))
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    //根据题目要求，判断数字参数是否为质数并且需要将方法添加到数字对象的原型链上，而质数是指在大于1的自然数中，除了1和它本身以外不再有其他因数的自然数，当判断为质数时返回true，否则返回false，核心步骤有：
+
+    // 首先在Number对象的原型上添加该函数
+    // 函数中当数字参数小于2时，返回false
+    // 然后进入循环，初始值为2，结束条件为当初始值等于数字参数时，返回true
+
+    Number.prototype._isPrime = function () {
+      let number = this.valueOf()
+      if (number < 2) return false
+      for (let i = 2; i <= number; i++) {
+        if (i === number) return true
+        if (number % i === 0) return false
+        if (number % i !== 0) continue
+      }
+    }
+  </script>
+</body>
+
+</html>
