@@ -46,13 +46,18 @@
         items[i].checked = checked
       }
     }
-    var flag = all.checked
+    var flag
     for (var i = 0; i < items.length; i++) {
       items[i].onclick = function () {
         for (var i = 0; i < items.length; i++) {
-          if (items[i].checked === flag) {
-            alert(111)
+          if (items[i].checked === false) {
+            all.checked = false
+          } else {
+            all.checked = true
           }
+        }
+        if (this.checked === false) {
+          all.checked = false
         }
       }
     }

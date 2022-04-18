@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 描述
+    // 请补全JavaScript代码，要求以Boolean的形式返回字符串参数是否符合身份证标准。
+    // 注意：
+    // 1. 无需考虑地区信息、出生日期、顺序码与校验码的验证
+
+    // 解题思路
+    // 根据题目要求，判断字符串参数是否满足身份证格式条件，核心步骤有:
+    // 1.创建正则表达式，一代身份证15位，二代身份证18位
+    // 2.在二代身份证18位数字中，最后一位有可能是'x'|'X'
+
+    const _isCard = number => {
+      var regx = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
+      return regx.test(number)
+    }
+  </script>
+</body>
+
+</html>
