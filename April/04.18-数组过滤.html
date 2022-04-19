@@ -60,6 +60,7 @@
     // 1. 必须使用DOM0级标准事件（onchange）
     // 2. 建议使用ES6的filter方法
 
+    // 改变事件
     select.onchange = function () {
       ul.innerHTML = ''
       switch (parseInt(this.value)) {
@@ -81,7 +82,7 @@
       }
       listRendering(newArr)
     }
-
+    // 列表渲染的函数
     function listRendering(arr) {
       var str = ''
       arr.forEach(element => {

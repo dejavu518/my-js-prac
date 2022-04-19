@@ -1,4 +1,5 @@
 function animate(ele, attr_options, callback) {
+  // [...arguments]
   for (var attr in attr_options) {
     // console.log(attr_options , attr_options[attr])
     attr_options[attr] = {
