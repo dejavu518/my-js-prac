@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <table>
+    <thead>
+      <caption>
+        商品
+      </caption>
+    </thead>
+    <tbody>
+      <tr>
+        <td>炸鸡</td>
+        <td>28元</td>
+        <td><button id="zjtaiduola">-</button></td>
+        <td><span id="zjsl">0</span></td>
+        <td><button id="zjtaishaola">+</button></td>
+      </tr>
+      <tr>
+        <td>可乐</td>
+        <td>5元</td>
+        <td><button id="kltaiduola">-</button></td>
+        <td><span id="klsl">0</span></td>
+        <td><button id="kltaishaola">+</button></td>
+      </tr>
+      <tr>
+        <td>总价：</td>
+        <td><span id="total">0</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <script>
+    // 请补全JavaScript代码，要求如下：
+    // 1. 当点击"-"按钮时，商品数量减1
+    // 2. 当点击"+"按钮时，商品数量加1
+    // 3. 每当点击任意按钮时，购物面板中相关信息必须同步更新
+    // 注意：
+    // 1. 必须使用DOM0级标准事件（onclick）
+    var zjsl = document.querySelector('#zjsl')
+    var zjReduce = document.querySelector('#zjtaiduola')
+    var zjPlus = document.querySelector('#zjtaishaola')
+    var klsl = document.querySelector('#klsl')
+    var klReduce = document.querySelector('#kltaiduola')
+    var klPlus = document.querySelector('#kltaishaola')
+    var total = document.querySelector('#total')
+    // 炸鸡数量+
+    zjPlus.onclick = function () {
+      zjsl.innerHTML++
+      getTotal(28, Number(zjsl.innerHTML), 5, Number(klsl.innerHTML))
+    }
+    // 炸鸡数量-
+    zjReduce.onclick = function () {
+      if (zjsl.innerHTML > 0) {
+        zjsl.innerHTML--
+        getTotal(28, Number(zjsl.innerHTML), 5, Number(klsl.innerHTML))
+      }
+    }
+    // 可乐数量+
+    klPlus.onclick = function () {
+      klsl.innerHTML++
+      getTotal(28, Number(zjsl.innerHTML), 5, Number(klsl.innerHTML))
+    }
+    // 可乐数量-
+    klReduce.onclick = function () {
+      if (klsl.innerHTML > 0) {
+        klsl.innerHTML--
+        getTotal(28, Number(zjsl.innerHTML), 5, Number(klsl.innerHTML))
+      }
+    }
+    // 计算总价
+    function getTotal(zjPrice, zjCount, klPrice, klCount) {
+      total.innerHTML = zjPrice * zjCount + klPrice * klCount
+    }
+  </script>
+</body>
+
+</html>
