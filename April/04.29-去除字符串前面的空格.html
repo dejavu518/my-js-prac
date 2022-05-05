@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // trim()方法
+    function clearSpace(str) {
+      return str.trim()
+    }
+    console.log(clearSpace('   fdgf'))
+
+    // 正则表达式
+    function removeSpace(str) {
+      // 去除两头空格
+      return str.replace(/^\s+|\s+$/g, '')
+      // 去除所有空格
+      return str.replace(/\s+/g, '')
+      // 去除左边空格
+      return str.replace(/\^s/, '')
+      // 去除右边空格
+      return str.replace(/\s$/g, '')
+    }
+    // 
+  </script>
+
+</body>
+
+</html>

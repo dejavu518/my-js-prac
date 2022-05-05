@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function getSum(n) {
+      if (n == 1) return 1
+      return getSum(n - 1) + n
+    }
+    console.log(getSum(100))
+
+    function sumFunc(num, start) {
+      num += start
+      start++;
+      if (start > 100) {
+        console.log(num);
+        return num
+      } else {
+        sumFunc(num, start)
+      }
+    }
+    sumFunc(0, 1);
+  </script>
+
+</body>
+
+</html>
