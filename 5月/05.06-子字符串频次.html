@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 请补全JavaScript代码，该函数接受两个参数分别为字符串、子字符串，要求返回子字符串在字符串中出现的频次。
+    // 注：子字符串不一定长度为1
+
+    // **** 第一种 ****
+    // 使用split分割（target为分割点）
+    // 有n个target返回的列表就会有n+1个元素
+    // 对列表取长度并且-1就会得到target的个数
+    const _searchStrIndexOf1 = (str, target) => {
+      return str.split(target).length - 1
+    }
+    // **** 第二种 ****
+    // 使用正则表达来计算共有几个target
+    // match会返回符合条件的数组
+    const _searchStrIndexOf2 = (str, target) => {
+      let reg = new RegExp(target, 'g')
+      return str.match(reg).length
+    }
+
+    // **** 第三种 ****
+    // 使用str.indexOf找到对应的子字符串在str的索引值
+    // 如果索引值不为 - 1 就表示找到
+    // 之后再进行寻找， 但是indexOf的第二个参数应该为index + 1
+    // 循环在index == -1 的时候退出
+    const _searchStrIndexOf3 = (str, target) => {
+      let index = str.indexOf(target)
+      let sum = 0
+      while (index > -1) {
+        index = str.indexOf(target, index + 1)
+        sum++
+      }
+      return sum
+    }
+  </script>
+</body>
+
+</html>
