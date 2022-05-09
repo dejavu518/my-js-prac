@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 请补全JavaScript代码，要求以boolean的形式返回两个Set对象参数是否一样，是则返回true，否则返回false。
+
+    // 本题考点：扩展字符、遍历、size、has
+
+    // 根据题目要求判断两个Set参数是否是一样的，核心步骤有：
+
+    // 通过size判断两个set对象的长度是否一致，不一致直接返回false
+    // 通过ES6[...]扩展字符将set对象的伪数组转换为数组再调用every进而判断该数组中的每一项是否存在于另一个set对象中
+    const _isSameSet = (s1, s2) => {
+      if (s1.size !== s2.size) {
+        return false
+      }
+      return [...s1].every(i => s2.has(i))
+    }
+  </script>
+</body>
+
+</html>
