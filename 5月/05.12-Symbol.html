@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 请补全JavaScript代码，要求以键/值对的对象形式返回参数数组。要求如下：
+    // 1. 键名的数据类型为Symbol
+    // 2. 键值为当前数组项
+    // 3. Symbol的描述为当前数组项
+    // 4. 返回普通对象
+
+    /*
+      思路：
+      1.生成空对象
+      2.遍历数组
+      3.生成Symbol实例，初始化时将数组的该项带入
+      4.设置对象键名、键值
+      5.返回对象
+    */
+    const _symbolKey = array => {
+      let obj = {}
+      for (item of array) {
+        let key = Symbol(item)
+        obj[key] = item
+      }
+      return obj
+    }
+    console.log(_symbolKey([1, 2, 5]))
+  </script>
+</body>
+
+</html>
