@@ -13,11 +13,13 @@
 </body>
 <script>
   let arr = [
-      [1, 2],
-      [3, 4],
-      [5, 6]
-    ]
-    // 1.双重循环遍历方法
+    [1, 2],
+    [3, 4],
+    [5, 6]
+  ]
+  /*
+    1.双重循环遍历方法
+  */
   function reduceDimension(arr) {
     var reduced = []
     for (var i = 0; i < arr.length; i++) {
@@ -30,7 +32,9 @@
   }
   reduceDimension(arr)
 
-  // 2.利用concat方法转换
+  /*
+    2.利用concat方法转换
+  */
   function reduceDimensionConcat(arr) {
     let reduced = []
     for (var i = 0; i < arr.length; i++) {
@@ -41,14 +45,20 @@
   }
   reduceDimensionConcat(arr)
 
-  // 利用apply和concat转换
-  // arr作为apply方法的第二个参数，本身是一个数组，数组中的每一个元素（还是数组，即二维数组的第二维）会被作为参数依次传入到concat中，效果等同于[].concat([1,2], [3,4], [5,6])。
+  /*
+    3.利用apply和concat转换
+    arr作为apply方法的第二个参数，本身是一个数组，数组中的每一个元素（还是数组，即二维数组的第二维）会被作为参数依次传入到concat中，效果等同于[].concat([1,2], [3,4], [5,6])。
+  */
   function reduceDimensionApply(arr) {
     let reduced = Array.prototype.concat.apply([], arr)
     console.log('apply和concat结合方法：',
       reduced)
   }
   reduceDimensionApply(arr)
+  // ffc
+  // feeling
+  // fact
+  // compare
 </script>
 
 </html>

@@ -15,6 +15,9 @@
 
 </body>
 <script>
+  /*
+    判断字符串是否以元音字母结尾
+  */
   function endsWithVowel(str) {
     let vowel = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
     let lastVal = str[str.length - 1]
@@ -26,6 +29,24 @@
 
   }
   endsWithVowel('catw')
+
+  /*
+    思路：
+    1.明确原因字母有哪些?
+    2.取值字符串最后一位
+    3.利用indexOf方法来判断
+  */
+  function ends(str) {
+    let vowel = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
+    let lastVal = str[str.length - 1]
+    console.log(lastVal)
+    if (vowel.indexOf(lastVal) !== -1) {
+      return true
+    } else {
+      return false
+    }
+  }
+  console.log(ends('1dgfddsagfda')) //true
 </script>
 
 </html>

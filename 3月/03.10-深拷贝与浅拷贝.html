@@ -12,7 +12,9 @@
 
 </body>
 <script>
-  // 对象赋值（复制的是该对象在栈中的地址）
+  /*
+    对象赋值（复制的是该对象在栈中的地址）
+  */
   let obj1 = {
     name: '浪里行舟',
     arr: [1, [2, 3], 4],
@@ -23,7 +25,9 @@
   console.log('obj1', obj1) // obj1 { name: '阿浪', arr: [ 1, [ 5, 6, 7 ], 4 ] }
   console.log('obj2', obj2) // obj2 { name: '阿浪', arr: [ 1, [ 5, 6, 7 ], 4 ] }
 
-  // 浅拷贝：其中一个对象改变了会影响另一个对象
+  /*
+    浅拷贝：其中一个对象改变了会影响另一个对象
+  */
   let obj3 = shallowClone(obj1)
 
   function shallowClone(source) {
@@ -36,7 +40,10 @@
     return target
   }
   console.log(obj3, '浅拷贝')
-    // 深拷贝：修改新对象不会影响原对象
+
+  /*
+    深拷贝：修改新对象不会影响原对象
+  */
   let obj4 = deepClone(obj1)
   obj4.name = "阿芳"
 
@@ -59,6 +66,7 @@
   // --------------------归纳总结方法------------------------------
   // *************浅拷贝的实现方式*************
   // 1.Object.assign()
+  // 对象的合并功能
   let obj_a = {
     name: '小红',
     age: 18,
@@ -71,19 +79,21 @@
   obj_b.name = "小刚"
   obj_b.msg.hobby = '吃东西'
   console.log(obj_a)
-    // 2.函数库lodash的_.clone方法
-    // var _ = require('lodash')
-    // var obj_c = {
-    //   a: 1,
-    //   b: {
-    //     f: {
-    //       g: 1
-    //     }
-    //   },
-    //   c: [1, 2, 3]
-    // }
-    // var obj_d = _.clone(obj_c)
-    // console.log(obj_d)
+  // 2.函数库lodash的_.clone方法
+  // var _ = require('lodash')
+  // var obj_c = {
+  //   a: 1,
+  //   b: {
+  //     f: {
+  //       g: 1
+  //     }
+  //   },
+  //   c: [1, 2, 3]
+  // }
+  // var obj_d = _.clone(obj_c)
+  // console.log(obj_d)
+
+
 
   // 3.展开运算符
   let obj_e = {
@@ -93,12 +103,13 @@
       y: 100
     }
   }
-  let obj_f = {...obj_e
+  let obj_f = {
+    ...obj_e
   }
   obj_f.name = "小红"
   obj_f.adress.x = 80000
   console.log(obj_f)
-    // 4.Array.prototype.concat()
+  // 4.Array.prototype.concat()
   let arr1 = [1, 2, {
     name: '阿阳',
     age: 25
@@ -108,7 +119,7 @@
   arr2[2].name = "小小"
   arr2[2].age = 19
   console.log(arr2)
-    //5.Array.prototype.slice()
+  //5.Array.prototype.slice()
   let arr3 = arr1.slice()
   console.log(arr3, '哈哈')
 
@@ -123,19 +134,19 @@
   arr_b[0] = 10000
   arr_b[2].name = "小花"
   console.log(arr_b)
-    // 2.函数库lodash的_.cloneDeep方法
-    // var _ = require('lodash');
-    // var obj1 = {
-    //   a: 1,
-    //   b: {
-    //     f: {
-    //       g: 1
-    //     }
-    //   },
-    //   c: [1, 2, 3]
-    // };
-    // var obj2 = _.cloneDeep(obj1);
-    // console.log(obj1.b.f === obj2.b.f); // false
+  // 2.函数库lodash的_.cloneDeep方法
+  // var _ = require('lodash');
+  // var obj1 = {
+  //   a: 1,
+  //   b: {
+  //     f: {
+  //       g: 1
+  //     }
+  //   },
+  //   c: [1, 2, 3]
+  // };
+  // var obj2 = _.cloneDeep(obj1);
+  // console.log(obj1.b.f === obj2.b.f); // false
 
   // 3.Jquery的extend()方法
   // $.extend(deepCopy,target,object1,[objectN]) ==>第一个参数为true就是深拷贝
@@ -153,12 +164,12 @@
     if (obj === null) return obj
     if (obj instanceof Date) return new Date(obj)
     if (obj instanceof RegExp) return new RegExp(obj)
-      // 可能是对象或者普通的值，如果是函数的话就不需要拷贝
+    // 可能是对象或者普通的值，如果是函数的话就不需要拷贝
     if (typeof obj !== 'object') return obj
-      // 是对象的话就要进行深拷贝
+    // 是对象的话就要进行深拷贝
     if (hash.get(obj)) return hash.get(obj)
     let cloneObj = new obj.constructor()
-      // 找到的是所属类原型上的constructor,而原型上的constructor指向的是当前类本身
+    // 找到的是所属类原型上的constructor,而原型上的constructor指向的是当前类本身
     hash.set(obj, cloneObj)
     for (let key in obj) {
       if (obj.hasOwnProperty(key)) {
