@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const _objectFreeze = object => {
+      let props = Object.getOwnPropertyNames(object)
+      for (let prop of props) {
+        const des = Object.getOwnPropertyDescriptor(object, prop)
+        if (des.get || des.set) {
+          Object.defineProperty(object, prop, {
+            configurable: false,
+            get: des.get,
+            set: des.set
+          })
+        } else {
+          Object.defineProperty(object, prop, {
+            writable: false,
+            configurable: false
+          })
+        }
+      }
+      return Object.preventExtensions(object)
+    }
+  </script>
+</body>
+
+</html>
