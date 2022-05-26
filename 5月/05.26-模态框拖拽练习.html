@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .title{
+      font-size: 20px;
+      text-align: center;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .bg{
+      background-color: #D7D7D7;
+      width: 100%;
+      height: 100vh;
+      display: none;
+    }
+    .dialog{
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      position: absolute;
+      width: 500px;
+      height: 280px;
+      background-color: aquamarine;
+      display: none;
+      /* position: relative; */
+    }
+    .close{
+      width:10px ;
+      height: 10px;
+      position: absolute;
+      top: 0;
+      right: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <!-- 打开提示 -->
+  <div class="title">点击打开弹出层</div>
+  <!-- 弹框 -->
+  <div class="dialog">
+    <span class="close">×</span>
+  </div>
+  <!-- 背景 -->
+  <div class="bg"></div>
+</body>
+<script>
+  var title=document.querySelector('.title')
+  var dialog=document.querySelector('.dialog')
+  var bg=document.querySelector('.bg')
+  var close=document.querySelector('.close')
+  // 打开弹框
+  title.addEventListener('click',function(){
+    dialog.style.display='block'
+    bg.style.display='block'
+  })
+  // 关闭弹框
+  close.addEventListener('click',()=>{
+    dialog.style.display='none'
+    bg.style.display='none'
+  })
+  // 拖拽
+  // (1)当鼠标按下，就获得鼠标在盒子内的坐标
+  dialog.addEventListener('mousedown',function(e){
+      var x=e.pageX-this.offsetLeft
+      var y=e.pageY-this.offsetTop
+      // (2)鼠标移动的时候，把鼠标在页面内的坐标，减去鼠标在盒子内的坐标就是模态框的left值和top值
+      document.addEventListener('mousemove',move)
+      function move(e){
+        dialog.style.left=e.pageX-x+'px'
+        dialog.style.top=e.pageY-y+'px'
+      }
+      // 鼠标弹起就让鼠标移动事件移除
+      document.addEventListener('mouseup',function(){
+        document.removeEventListener('mousemove',move)
+      })
+    })
+</script>
+</html>
