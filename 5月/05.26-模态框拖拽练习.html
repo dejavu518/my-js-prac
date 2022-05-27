@@ -75,7 +75,7 @@
         dialog.style.left=e.pageX-x+'px'
         dialog.style.top=e.pageY-y+'px'
       }
-      // 鼠标弹起就让鼠标移动事件移除
+      // (3)鼠标弹起就让鼠标移动事件移除
       document.addEventListener('mouseup',function(){
         document.removeEventListener('mousemove',move)
       })
