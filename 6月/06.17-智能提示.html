@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+// 本题展示了一个简化版的搜索框智能提示功能，请按照如下要求完成suggest函数。
+// 1、当输入框的值发生变化时，系统会调用suggest函数，用于显示/隐藏智能提示数据，参数items为一个字符串数组。
+// 2、当items中的字符串和输入框的值匹配时，将匹配的数据依次渲染在ul下的li节点中，并显示.js-suggest节点，否则移除ul下的所有li节点，并隐藏.js-suggest节点
+// 3、输入框的值需要移除两侧空白再进行匹配
+// 4、输入框的值为空时，按照全部不匹配处理
+// 5、字符串使用模糊匹配，比如"北大"能匹配"北大"和"北京大学"，但不能匹配"大北京"，即按照 /北.*?大.*?/ 这个正则进行匹配
+// 6、通过在.js-suggest节点上添加/移除 hide 这个class来控制该节点的隐藏/显示
+// 7、当前界面是执行 suggest(['不匹配数据', '根据输入框的值', '从给定字符串数组中筛选出匹配的数据，依次显示在li节点中', '如果没有匹配的数据，请移除所有li节点，并隐藏.js-suggest节点']) 后的结果
+// 8、请不要手动修改html和css
+// 9、不要使用第三方插件
+// 10、请使用ES5语法
+
+function suggest(items) {
+    let ipt = document.querySelector('.js-input').value;
+    let dv = document.querySelector('.js-suggest');
+    let ul = document.querySelector('ul');
+    let len = ul.children.length;
+    // console.log('len', len);
+
+    // 清空ul
+    for (let i = 0; i < len; i++) {
+        let li = document.querySelector('li');
+        ul.removeChild(li);
+    }
+    // console.log(ul.children.length);
+
+    ipt = ipt.trim();
+    // 输入为空
+    if (!ipt) {
+        dv.classList.add('hide');
+        return;
+    }
+
+    // 构造reg的时候，ipt如果是特殊字符，要转义
+    let reg = '';
+    const regKey = ['(', ')', '.', '?', '^', '/', '\\', '*', '[', ']', '|', '+', '{', '}', '$'];
+    console.log(regKey.length);
+    for (i of ipt) {
+        if (regKey.includes(i)) {
+            i = '\\' + i;
+        }
+        reg += i +'.*?';
+    }
+    // console.log(reg);
+    reg = new RegExp(reg);
+
+    // 匹配
+    for (i of items) {
+        if (reg.test(i)) {
+            let tip = document.createElement('li');
+            tip.innerHTML = i;
+            ul.appendChild(tip);
+        }
+    }
+    dv.appendChild(ul);
+
+    // 要考虑ipt不为空但是没有匹配到
+    if (ul.children.length){
+        dv.classList.remove('hide');
+    } else {
+        dv.classList.add('hide');
+    }
+}
+  </script>
+</body>
+</html>
