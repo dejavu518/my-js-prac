@@ -1,0 +1,49 @@
+<!--
+ * @Author: dejavu518 cf_1118sab@163.com
+ * @Date: 2022-10-09 15:10:19
+ * @LastEditors: dejavu518 cf_1118sab@163.com
+ * @LastEditTime: 2022-10-10 15:14:50
+ * @FilePath: \my-js-prac\10月算法\10.10-回文数.html
+ * @Description: 回文数
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+// 给你一个整数 x ，如果 x 是一个回文整数，返回 true ；否则，返回 false 。
+// 回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
+// 例如，121 是回文，而 123 不是。
+ function isCorrect(n){
+  let reverseNum=Number(n.toString().split('').reverse().join(''))
+  if(n<0){
+    return false
+  }else{
+    if(n===reverseNum){
+      return true
+    }else{
+      return false
+    }
+  }
+ }
+ console.log(isCorrect(686))
+
+function foo(){
+  console.log(this.name)
+}
+let obj={
+  name:'小猪课堂',
+  foo:{
+    name:'测试',
+    foo2:foo
+  }
+}
+obj.foo.foo2()
+  </script>
+</body>
+</html>
